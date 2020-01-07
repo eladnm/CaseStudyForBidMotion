@@ -2,38 +2,38 @@
       <h1>Hydrane Angular 8 Frontend Dev CS</h1>
     </header>
     <button class="button" (click)="fetchDataPromise()">Go</button>
-<div class="example-header">
+<div *ngIf="show==true"  class="example-container mat-elevation-z8">
+  <div class="example-header">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
 </div>
-<div class="example-container mat-elevation-z8">
   <mat-table [dataSource]="dataSource" matSort>
-
     <ng-container matColumnDef="continentName">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Continent Name </mat-header-cell>
       <mat-cell *matCellDef="let country"> {{country.continentName}} </mat-cell>
+      <mat-footer-cell *matFooterCellDef> Total</mat-footer-cell>
     </ng-container>
       <ng-container matColumnDef="countryName">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Country Name </mat-header-cell>
         <mat-cell *matCellDef="let country"> {{country.countryName}} </mat-cell>
+        <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
       <ng-container matColumnDef="areaInSqKm">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Area In SqKm </mat-header-cell>
         <mat-cell *matCellDef="let country"> {{country.areaInSqKm}} </mat-cell>
+      <mat-footer-cell *matFooterCellDef> {{ getTotalSqm() }}</mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="population">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Population </mat-header-cell>
       <mat-cell *matCellDef="let country"> {{country.population}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Total: {{ getTotal() }}</mat-footer-cell>
+      <mat-footer-cell *matFooterCellDef> {{ getTotalPop() }}</mat-footer-cell>
     </ng-container>
-
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+<mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row>
   </mat-table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
-
+  <mat-paginator [pageSizeOptions]="[5, 10, 15, 20,500]"></mat-paginator>
 </div>
 
 

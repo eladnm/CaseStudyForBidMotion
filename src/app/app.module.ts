@@ -38,7 +38,6 @@ import {
   MatStepperModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {TableOverviewExample} from './app/table-overview-example';
 import {CdkTableModule} from '@angular/cdk/table';
 
 @NgModule({

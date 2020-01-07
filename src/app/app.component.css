@@ -1,3 +1,12 @@
+
+h1 {
+      text-align: center;
+}
+.button{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
 .example-container {
   display: flex;
   flex-direction: column;
@@ -18,4 +27,5 @@
   overflow: auto;
   max-height: 500px;
 }
+
 

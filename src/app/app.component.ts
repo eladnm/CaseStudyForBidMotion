@@ -1,9 +1,7 @@
-import { Country } from '././models/country.model';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { ServiceCountries } from './shared/service';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort, MatTableDataSource } from "@angular/material";
-import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-root",
@@ -12,32 +10,39 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   title = "my-case-study";
-  dataSource = new MatTableDataSource([]);
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+   show = false;
+dataSource = new MatTableDataSource([]);
+displayedColumns = ['continentName', 'countryName', 'areaInSqKm', 'population'];
+geonames = [];
+@ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+@ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(private serviceCountries: ServiceCountries) {}
+fetchDataPromise() {
+this.show = true;
+this.serviceCountries.getListCountriesPromise().then(res => {
+this.geonames = res.geonames;
+this.dataSource = new MatTableDataSource(res.geonames);
+this.dataSource.sort = this.sort;
+this.dataSource.paginator = this.paginator;
+});
+}
 
-  fetchDataPromise() {
-    this.serviceCountries.getListCountriesPromise().then(res => {
-    this.displayedColumns = ['continentName', 'countryName', 'areaInSqKm', 'population'];
-    this.dataSource = new MatTableDataSource(res.geonames);
-      console.log(res.geonames);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-
-
-    });
-  }
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-    getTotal() {
-    return this.country.map(t => t.population).reduce((acc, value) => acc + value, 0);
+  getTotalPop() {
+return this.dataSource.filteredData.map(t => t.population).reduce((acc, value) => Number(acc) + Number(value), 0);
   }
+  getTotalSqm() {
+    return this.dataSource.filteredData.map(t => t.areaInSqKm).reduce((acc, value) => Number(acc) + Number(value), 0);
+
+  }
+  
+
 }
 
 
