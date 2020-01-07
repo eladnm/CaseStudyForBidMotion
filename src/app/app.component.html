@@ -11,21 +11,23 @@
   <mat-table [dataSource]="dataSource" matSort>
 
     <ng-container matColumnDef="continentName">
-      <mat-header-cell *matHeaderCellDef>Continent Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Continent Name </mat-header-cell>
       <mat-cell *matCellDef="let country"> {{country.continentName}} </mat-cell>
     </ng-container>
       <ng-container matColumnDef="countryName">
-        <mat-header-cell *matHeaderCellDef>Country Name </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Country Name </mat-header-cell>
         <mat-cell *matCellDef="let country"> {{country.countryName}} </mat-cell>
     </ng-container>
       <ng-container matColumnDef="areaInSqKm">
-        <mat-header-cell *matHeaderCellDef>Area In SqKm </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Area In SqKm </mat-header-cell>
         <mat-cell *matCellDef="let country"> {{country.areaInSqKm}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="population">
-      <mat-header-cell *matHeaderCellDef>Population </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Population </mat-header-cell>
       <mat-cell *matCellDef="let country"> {{country.population}} </mat-cell>
+      <mat-footer-cell *matFooterCellDef> Total: {{ getTotal() }}</mat-footer-cell>
     </ng-container>
+
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
